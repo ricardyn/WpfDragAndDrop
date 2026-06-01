@@ -52,4 +52,18 @@ public class MainWindowViewModel : ObservableObject
         get => _selectedBasketItemIndex;
         set => SetProperty(ref _selectedBasketItemIndex, value);
     }
+
+    private RelayCommand? _dropItemCommand;
+
+    public RelayCommand DropItemCommand {
+        get => _dropItemCommand ??= new RelayCommand(_dropItem);
+    }
+
+    private void _dropItem(object? obj)
+    {
+        if (obj is not BasketItem droppedItem) return;
+        
+        Groceries.Remove(droppedItem);
+        Basket.Add(droppedItem);
+    }
 }
