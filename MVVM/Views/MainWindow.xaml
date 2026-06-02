@@ -28,6 +28,7 @@
                   SelectedIndex="{Binding SelectedBasketItemIndex}"
                   SelectionMode="Single"
                   beahaviors:DropTargetBehavior.DropCommand="{Binding DropItemCommand}"
+                  beahaviors:DropTargetBehavior.TargetItemType="{x:Type models:BasketItem}"
                   beahaviors:DropTargetBehavior.DroppedItemType="{x:Type models:GroceryItem}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:BasketItem}">

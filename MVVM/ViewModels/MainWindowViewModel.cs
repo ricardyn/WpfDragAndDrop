@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using WpfApp.DragAndDrop.MVVM.Core;
 using WpfApp.DragAndDrop.MVVM.Models;
 
@@ -61,17 +62,42 @@ public class MainWindowViewModel : ObservableObject
 
     private void _dropItem(object? obj)
     {
-        if (obj is not GroceryItem droppedItem) return;
+        if (obj is not DropPayload payload) return;
 
-        BasketItem? allreadyInBasket = Basket.FirstOrDefault(dr => dr.Name == droppedItem.Name);
-        
-        if (allreadyInBasket != null)
-        {
-            allreadyInBasket.Quantity += droppedItem.Quantity;
-        }
-        else
+        if (payload.DroppedItem is not GroceryItem droppedItem) return;
+
+        BasketItem? targetItem = payload.TargetItem as BasketItem;
+
+        BasketItem? alreadyInBasket = Basket.FirstOrDefault(b => b.Name == droppedItem.Name);
+
+        // 1. Se o item ainda não existe na Basket, adiciona-o.
+        if (alreadyInBasket == null)
         {
             Basket.Add(new BasketItem { Name = droppedItem.Name, Quantity = droppedItem.Quantity });
+            return;
         }
+
+        // Se foi solto sobre um espaço vazio (sem item de destino),
+        // tratamos como uma adição simples ao item de mesmo nome existente.
+        if (targetItem == null)
+        {
+            alreadyInBasket.Quantity += droppedItem.Quantity;
+            return;
+        }
+
+        // 2. O item da Basket sob o cursor tem o mesmo nome: soma a Quantity.
+        if (targetItem.Name == droppedItem.Name)
+        {
+            targetItem.Quantity += droppedItem.Quantity;
+            return;
+        }
+
+        // 3. O item da Basket sob o cursor tem nome diferente: avisa o usuário.
+        MessageBox.Show(
+            $"O item \"{droppedItem.Name}\" é diferente do item selecionado \"{targetItem.Name}\".",
+            "Itens diferentes",
+            MessageBoxButton.OK,
+            MessageBoxImage.Warning
+        );
     }
 }
