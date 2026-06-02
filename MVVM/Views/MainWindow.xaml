@@ -28,7 +28,17 @@
                   SelectedIndex="{Binding SelectedBasketItemIndex}"
                   SelectionMode="Single"
                   beahaviors:DropTargetBehavior.DropCommand="{Binding DropItemCommand}"
-                  beahaviors:DropTargetBehavior.DroppedItemType="{x:Type models:BasketItem}"/>
+                  beahaviors:DropTargetBehavior.DroppedItemType="{x:Type models:GroceryItem}">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:BasketItem}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                        <TextBlock Text=" | " />
+                        <TextBlock Text="{Binding Quantity}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
         <ListView x:Name="ListViewGroceries"
                   Grid.Column="2"

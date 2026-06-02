@@ -8,17 +8,17 @@ public class MainWindowViewModel : ObservableObject
 {
     private ObservableCollection<BasketItem> _basket = new();
     
-    private ObservableCollection<BasketItem> _groceries = new()
+    private ObservableCollection<GroceryItem> _groceries = new()
     {
-        new BasketItem { Name = "Apple", Quantity = 5},
-        new BasketItem { Name = "Orange", Quantity = 6},
-        new BasketItem { Name = "Banana", Quantity = 24},
-        new BasketItem { Name = "Milk", Quantity = 1},
-        new BasketItem { Name = "Egg", Quantity = 30},
-        new BasketItem { Name = "Bread", Quantity = 6},
+        new GroceryItem { Name = "Apple", Quantity = 5},
+        new GroceryItem { Name = "Orange", Quantity = 6},
+        new GroceryItem { Name = "Banana", Quantity = 24},
+        new GroceryItem { Name = "Milk", Quantity = 1},
+        new GroceryItem { Name = "Egg", Quantity = 30},
+        new GroceryItem { Name = "Bread", Quantity = 6},
     };
     
-    private BasketItem _selectedGroceryItem;
+    private GroceryItem _selectedGroceryItem;
     private int _selectedGroceryItemIndex;
     private BasketItem _selectedBasketItem;
     private int _selectedBasketItemIndex;
@@ -28,12 +28,12 @@ public class MainWindowViewModel : ObservableObject
         set => SetProperty(ref _basket, value);
     }
 
-    public ObservableCollection<BasketItem> Groceries {
+    public ObservableCollection<GroceryItem> Groceries {
         get => _groceries;
         set => SetProperty(ref _groceries, value);
     }
 
-    public BasketItem SelectedGroceryItem {
+    public GroceryItem SelectedGroceryItem {
         get => _selectedGroceryItem;
         set => SetProperty(ref _selectedGroceryItem, value);
     }
@@ -61,9 +61,17 @@ public class MainWindowViewModel : ObservableObject
 
     private void _dropItem(object? obj)
     {
-        if (obj is not BasketItem droppedItem) return;
+        if (obj is not GroceryItem droppedItem) return;
+
+        BasketItem? allreadyInBasket = Basket.FirstOrDefault(dr => dr.Name == droppedItem.Name);
         
-        Groceries.Remove(droppedItem);
-        Basket.Add(droppedItem);
+        if (allreadyInBasket != null)
+        {
+            allreadyInBasket.Quantity += droppedItem.Quantity;
+        }
+        else
+        {
+            Basket.Add(new BasketItem { Name = droppedItem.Name, Quantity = droppedItem.Quantity });
+        }
     }
 }
