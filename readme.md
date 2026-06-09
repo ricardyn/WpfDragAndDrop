@@ -121,9 +121,9 @@ A configuração no XAML é totalmente declarativa:
 
 ```xml
 <ListView ItemsSource="{Binding Basket}"
-          beahaviors:DropTargetBehavior.DropCommand="{Binding DropItemCommand}"
-          beahaviors:DropTargetBehavior.TargetItemType="{x:Type models:BasketItem}"
-          beahaviors:DropTargetBehavior.DroppedItemType="{x:Type models:GroceryItem}" />
+          bh:DropTargetBehavior.DropCommand="{Binding DropItemCommand}"
+          bh:DropTargetBehavior.TargetItemType="{x:Type models:BasketItem}"
+          bh:DropTargetBehavior.DroppedItemType="{x:Type models:GroceryItem}" />
 ```
 
 

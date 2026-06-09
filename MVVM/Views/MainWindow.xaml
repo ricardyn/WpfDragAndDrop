@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:models="clr-namespace:WpfApp.DragAndDrop.MVVM.Models"
         xmlns:viewModels="clr-namespace:WpfApp.DragAndDrop.MVVM.ViewModels"
-        xmlns:beahaviors="clr-namespace:WpfApp.DragAndDrop.MVVM.Behaviors"
+        xmlns:bh="clr-namespace:WpfApp.DragAndDrop.MVVM.Behaviors"
         d:DataContext="{d:DesignInstance Type=viewModels:MainWindowViewModel, IsDesignTimeCreatable=False}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -27,9 +27,9 @@
                   SelectedItem="{Binding SelectedBasketItem}"
                   SelectedIndex="{Binding SelectedBasketItemIndex}"
                   SelectionMode="Single"
-                  beahaviors:DropTargetBehavior.DropCommand="{Binding DropItemCommand}"
-                  beahaviors:DropTargetBehavior.TargetItemType="{x:Type models:BasketItem}"
-                  beahaviors:DropTargetBehavior.DroppedItemType="{x:Type models:GroceryItem}">
+                  bh:DropTargetBehavior.DropCommand="{Binding DropItemCommand}"
+                  bh:DropTargetBehavior.TargetItemType="{x:Type models:BasketItem}"
+                  bh:DropTargetBehavior.DroppedItemType="{x:Type models:GroceryItem}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:BasketItem}">
                     <StackPanel Orientation="Horizontal">
@@ -47,6 +47,6 @@
                   SelectedItem="{Binding SelectedGroceryItem}"
                   SelectedIndex="{Binding SelectedGroceryItemIndex}"
                   SelectionMode="Single"
-                  beahaviors:DragSourceBehavior.IsEnabled="True"/>
+                  bh:DragSourceBehavior.IsEnabled="True"/>
     </Grid>
 </Window>
