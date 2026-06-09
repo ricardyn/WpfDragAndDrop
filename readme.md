@@ -56,7 +56,7 @@ A funcionalidade de Drag & Drop foi dividida em **dois Attached Behaviors** inde
 ```c#
 public record DropPayload(object DroppedItem, object? TargetItem);
 ```
-```
+
 
 
 Isso permite que:
